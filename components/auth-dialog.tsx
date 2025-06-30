@@ -33,10 +33,10 @@ export function AuthDialog({ open, onOpenChange }: AuthDialogProps) {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="w-[95vw] max-w-md mx-auto">
+      <DialogContent className="w-[95vw] max-w-md mx-auto bg-white dark:bg-black border-gray-200 dark:border-gray-800 text-black dark:text-white">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
-            <Shield className="w-5 h-5 text-blue-600" />
+            <Shield className="w-5 h-5 text-blue-600 dark:text-blue-400" />
             Human Verification
           </DialogTitle>
         </DialogHeader>
@@ -44,36 +44,36 @@ export function AuthDialog({ open, onOpenChange }: AuthDialogProps) {
         <div className="space-y-4">
           {!success && !isVerifying && (
             <>
-              <Card>
+              <Card className="bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-800">
                 <CardHeader>
-                  <CardTitle className="text-lg flex items-center gap-2">
+                  <CardTitle className="text-lg flex items-center gap-2 text-black dark:text-white">
                     <User className="w-5 h-5" />
                     Verify Your Humanity
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-3">
-                  <p className="text-gray-600 text-sm">
+                  <p className="text-gray-600 dark:text-gray-400 text-sm">
                     To maintain a safe and authentic community, we use Rarimo's zero-knowledge proof system to verify
                     that you're human.
                   </p>
-                  <div className="bg-blue-50 p-3 rounded-lg">
-                    <h4 className="font-medium text-blue-900 mb-1">Privacy Protected</h4>
-                    <p className="text-blue-700 text-sm">
+                  <div className="bg-blue-50 dark:bg-gray-800 p-3 rounded-lg border border-blue-200 dark:border-gray-700">
+                    <h4 className="font-medium text-blue-900 dark:text-blue-300 mb-1">Privacy Protected</h4>
+                    <p className="text-blue-700 dark:text-blue-400 text-sm">
                       Your personal information remains completely private. We only verify your humanity, not your
                       identity.
                     </p>
                   </div>
-                  <div className="space-y-2 text-sm text-gray-600">
+                  <div className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
                     <div className="flex items-center gap-2">
-                      <CheckCircle className="w-4 h-4 text-green-500" />
+                      <CheckCircle className="w-4 h-4 text-green-500 dark:text-green-400" />
                       <span>Anonymous diary entries</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <CheckCircle className="w-4 h-4 text-green-500" />
+                      <CheckCircle className="w-4 h-4 text-green-500 dark:text-green-400" />
                       <span>Zero-knowledge verification</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <CheckCircle className="w-4 h-4 text-green-500" />
+                      <CheckCircle className="w-4 h-4 text-green-500 dark:text-green-400" />
                       <span>No personal data stored</span>
                     </div>
                   </div>
@@ -81,13 +81,16 @@ export function AuthDialog({ open, onOpenChange }: AuthDialogProps) {
               </Card>
 
               {error && (
-                <div className="flex items-center gap-2 p-3 bg-red-50 text-red-700 rounded-lg">
+                <div className="flex items-center gap-2 p-3 bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-400 rounded-lg border border-red-200 dark:border-red-800">
                   <AlertCircle className="w-4 h-4" />
                   <span className="text-sm">{error}</span>
                 </div>
               )}
 
-              <Button onClick={handleAuth} className="w-full bg-blue-600 hover:bg-blue-700">
+              <Button
+                onClick={handleAuth}
+                className="w-full bg-blue-600 dark:bg-gray-700 hover:bg-blue-700 dark:hover:bg-gray-600 text-white dark:text-gray-200"
+              >
                 <Shield className="w-4 h-4 mr-2" />
                 Verify with Rarimo
               </Button>
@@ -96,20 +99,20 @@ export function AuthDialog({ open, onOpenChange }: AuthDialogProps) {
 
           {isVerifying && (
             <div className="flex flex-col items-center justify-center py-8 space-y-4">
-              <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
+              <Loader2 className="w-8 h-8 animate-spin text-blue-600 dark:text-blue-400" />
               <div className="text-center">
-                <h3 className="font-medium">Generating Zero-Knowledge Proof</h3>
-                <p className="text-sm text-gray-600 mt-1">This may take a few moments...</p>
+                <h3 className="font-medium text-black dark:text-white">Generating Zero-Knowledge Proof</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">This may take a few moments...</p>
               </div>
             </div>
           )}
 
           {success && (
             <div className="flex flex-col items-center justify-center py-8 space-y-4">
-              <CheckCircle className="w-12 h-12 text-green-500" />
+              <CheckCircle className="w-12 h-12 text-green-500 dark:text-green-400" />
               <div className="text-center">
-                <h3 className="font-medium text-green-700">Verification Successful!</h3>
-                <p className="text-sm text-gray-600 mt-1">You can now create diary entries</p>
+                <h3 className="font-medium text-green-700 dark:text-green-400">Verification Successful!</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">You can now create diary entries</p>
               </div>
             </div>
           )}

@@ -1,0 +1,8 @@
+type DiaryEntry @createModel(accountRelation: LIST, description: "A diary entry") {
+  content: String! @string(maxLength: 1000)
+  mood: String! @string(maxLength: 50)
+  location: String @string(maxLength: 100)
+  timestamp: DateTime!
+  anonymous: Boolean!
+  verified: Boolean!
+}

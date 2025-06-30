@@ -1,0 +1,46 @@
+{
+  "version": "1.0",
+  "models": {
+    "DiaryEntry": {
+      "id": "kjzl6hvfrbw6c99mdfpjx1z3fue7sesgua6gsl1zzxbeskcvlh5erfztjxe7b6a",
+      "accountRelation": {
+        "type": "list"
+      }
+    }
+  },
+  "objects": {
+    "DiaryEntry": {
+      "content": {
+        "type": "string",
+        "required": true
+      },
+      "mood": {
+        "type": "string",
+        "required": true
+      },
+      "location": {
+        "type": "string",
+        "required": false
+      },
+      "timestamp": {
+        "type": "datetime",
+        "required": true
+      },
+      "anonymous": {
+        "type": "boolean",
+        "required": true
+      },
+      "verified": {
+        "type": "boolean",
+        "required": true
+      }
+    }
+  },
+  "enums": {},
+  "accountData": {
+    "diaryEntryList": {
+      "type": "connection",
+      "name": "DiaryEntry"
+    }
+  }
+}

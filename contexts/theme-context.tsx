@@ -23,6 +23,13 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     }
   }, [])
 
+  useEffect(() => {
+    // Apply theme to html element
+    const html = document.documentElement
+    html.classList.remove("light", "dark")
+    html.classList.add(theme)
+  }, [theme])
+
   const setTheme = (newTheme: Theme) => {
     setThemeState(newTheme)
     localStorage.setItem("diary-theme", newTheme)
@@ -35,7 +42,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme, setTheme }}>
-      <div className={theme}>{children}</div>
+      {children}
     </ThemeContext.Provider>
   )
 }

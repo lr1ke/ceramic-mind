@@ -1,7 +1,7 @@
 "use client"
 
 import { createContext, useContext, useState, useEffect, type ReactNode } from "react"
-import { getCeramicService, type CeramicEntry } from "@/lib/ceramic-mock"
+import { getCeramicService, type CeramicEntry } from "@/lib/ceramic-v2"
 
 interface PublicEntriesContextType {
   entries: CeramicEntry[]

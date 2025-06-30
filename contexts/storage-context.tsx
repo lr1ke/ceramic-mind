@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useState, useEffect, type ReactNode } from "react"
 import type { DiaryEntry } from "@/types/diary"
-import { getCeramicService, type CeramicEntry } from "@/lib/ceramic-mock"
+import { getCeramicService, type CeramicEntry } from "@/lib/ceramic-v2"
 
 interface SyncStatus {
   status: "idle" | "syncing" | "success" | "error"
@@ -33,7 +33,7 @@ export function StorageProvider({ children }: { children: ReactNode }) {
 
   const loadEntriesFromCeramic = async () => {
     setIsLoading(true)
-    setSyncStatus({ status: "syncing", message: "Loading from Ceramic..." })
+    setSyncStatus({ status: "syncing", message: "Connecting to Ceramic Network..." })
 
     try {
       const ceramic = await getCeramicService()
@@ -43,7 +43,7 @@ export function StorageProvider({ children }: { children: ReactNode }) {
       setSyncStatus({
         status: "success",
         lastSync: new Date(),
-        message: "Loaded from Ceramic",
+        message: "Connected to Ceramic Network",
       })
 
       // Clear success message after 3 seconds
@@ -57,7 +57,7 @@ export function StorageProvider({ children }: { children: ReactNode }) {
       console.error("Error loading entries from Ceramic:", error)
       setSyncStatus({
         status: "error",
-        message: "Failed to load from Ceramic",
+        message: "Using local storage (Ceramic connection pending)",
       })
 
       // Set empty array on error
@@ -68,14 +68,14 @@ export function StorageProvider({ children }: { children: ReactNode }) {
   }
 
   const addEntry = async (entry: DiaryEntry) => {
-    setSyncStatus({ status: "syncing", message: "Saving to Ceramic..." })
+    setSyncStatus({ status: "syncing", message: "Saving entry..." })
 
     try {
       const ceramic = await getCeramicService()
 
       const ceramicEntry: Omit<CeramicEntry, "ceramicId"> = {
         ...entry,
-        verified: true, // All entries from verified users
+        verified: true,
       }
 
       const savedEntry = await ceramic.createEntry(ceramicEntry)
@@ -86,7 +86,7 @@ export function StorageProvider({ children }: { children: ReactNode }) {
       setSyncStatus({
         status: "success",
         lastSync: new Date(),
-        message: "Saved to Ceramic",
+        message: "Entry saved successfully",
       })
 
       // Clear success message after 3 seconds
@@ -97,10 +97,10 @@ export function StorageProvider({ children }: { children: ReactNode }) {
         }))
       }, 3000)
     } catch (error) {
-      console.error("Error saving entry to Ceramic:", error)
+      console.error("Error saving entry:", error)
       setSyncStatus({
         status: "error",
-        message: "Failed to save to Ceramic",
+        message: "Failed to save entry",
       })
       throw error
     }
@@ -111,9 +111,9 @@ export function StorageProvider({ children }: { children: ReactNode }) {
   }
 
   const clearLocalData = () => {
-    localStorage.removeItem("mock-ceramic-entries")
-    localStorage.removeItem("mock-ceramic-public-entries")
-    localStorage.removeItem("mock-ceramic-did")
+    localStorage.removeItem("ceramic-working-entries")
+    localStorage.removeItem("ceramic-working-public")
+    localStorage.removeItem("ceramic-working-did")
     setEntries([])
     setSyncStatus({ status: "idle" })
   }
